@@ -1,0 +1,48 @@
+﻿@User.Identity.IsAuthenticated
+@{
+    ViewBag.Title = "Home Page";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body style="font-size:20px; margin:-20px">
+    @if (User.Identity.IsAuthenticated)
+    {
+        switch ((int)ViewData["role"])
+        {
+            case 1:
+                <h1>Привет, админ!</h1>
+                <div>
+                    @Html.ActionLink("Заявки на роль модератора", "NewModerator", new { id = (int)ViewData["IdUser"] })
+                </div>
+                <div>
+                    @Html.ActionLink("Список пользователей", "IndexUser")
+                </div>
+                break;
+            case 2:
+                <h1>Привет, модератор!</h1>
+                <div>
+                    @Html.ActionLink("Мои магазины", "IndexForModerator")
+                </div>
+                <div>
+                    @Html.ActionLink("Добавить магазин", "CreateShop")
+                </div>
+                break;
+        }
+        <div>
+            @Html.ActionLink("Список магазинов", "IndexShop")
+        </div>
+    }
+    else
+    {
+        <div>
+            <h1>
+                Для доступа к сайту зарегистрируйтесь или выполните вход!
+            </h1>
+        </div>
+    }
+</body>
+</html>

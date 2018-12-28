@@ -1,0 +1,83 @@
+﻿@model Sgu.StudentTesting.PL.ViewModels.User.UserDisplayVM
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body style="margin-top:-2%; font-size:20px">
+    <div>
+        <h4>Профиль</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Имя
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                Фамилия
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
+
+            <dt>
+                Отчество
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Patronymic)
+            </dd>
+
+           
+            <dt>
+                Телефон
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+
+            <dt>
+                Почта
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.EMail)
+            </dd>
+
+        </dl>
+    </div>
+    @if ((int)ViewData["role"] == 3)
+    {
+        using (Html.BeginForm("DetailsPost", "User", new { id = Model.IDUser }))
+        {
+            <div class="col-md-offset-0 col-md-10">
+                <input type="submit" value="Запросить права модератора" class="btn btn-default" />
+            </div>
+        }
+    }
+    <div>
+            @Html.ActionLink("Редактировать", "Edit")
+    </div>
+    @if ((int)ViewData["role"] == 1)
+    {
+        <div>
+            @Html.ActionLink("Вернуться", "Index")
+        </div>
+    }
+    else
+    {
+        <div>
+            @Html.ActionLink("Вернуться", "IndexShop")
+        </div>
+    }  
+</body>
+</html>

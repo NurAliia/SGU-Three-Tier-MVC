@@ -1,0 +1,89 @@
+﻿@model Sgu.StudentTesting.PL.ViewModel.Shop.ShopDisplayVM
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Вы уверены, что хотите удалить?</h3>
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+<div>
+    <h4>ShopDisplayVM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            Название
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameShop)
+        </dd>
+
+        <dt>
+            Адрес
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            Город
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            Сайт
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+        <dt>
+            Описание
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionShop)
+        </dd>
+
+        <dt>
+            Телефон
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneShop)
+        </dd>
+
+        <dt>
+            Часы работы
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpeningHours)
+        </dd>
+
+        <dt>
+            Рейтинг
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+    </dl>
+    @Html.Hidden("idShop", ViewData["IDShop"])
+        <div class="form-actions no-color">       
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться", "ListShops")
+        </div>
+</div>
+}

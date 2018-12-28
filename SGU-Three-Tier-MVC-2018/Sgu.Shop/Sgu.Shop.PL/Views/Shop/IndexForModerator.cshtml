@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Sgu.StudentTesting.PL.ViewModel.Shop.ShopDisplayVM>
+
+@{
+    ViewBag.Title = "IndexForModerator";
+}
+
+<h2>IndexForModerator</h2>
+
+<p>
+    @Html.ActionLink("Добавить магазин", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Картинка
+        </th>
+        <th>
+            Название
+        </th>
+        <th>
+            Адрес
+        </th>
+        <th>
+            Город
+        </th>
+        <th>
+            Сайт
+        </th>
+        <th>
+            Описание
+        </th>
+        <th>
+            Телефон
+        </th>
+        <th>
+            Часы работы
+        </th>
+        <th>
+            Ретинг
+        </th>
+        <th></th>
+    </tr>
+
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src=@Url.Action("GetImage", "Shop", new { image = item.Image }) style="max-height:100px; max-height:100px" />
+
+           @*@if (item.Image.Length > 0 || item.Image == "")
+           {
+           }
+           else
+           {
+               <img src='~/img/default.JPG' style="max-width:100px;max-height:100px"/>
+           }*@
+
+        </td>        
+
+        <td>
+            @Html.DisplayFor(modelItem => item.NameShop)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Website)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescriptionShop)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneShop)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpeningHours)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new {  id=item.IDShop  }) |
+            @Html.ActionLink("Описание", "Details", new {  id=item.IDShop  }) |
+            @Html.ActionLink("Удалить", "Delete", new {  id=item.IDShop  })
+        </td>
+    </tr>
+}
+
+</table>

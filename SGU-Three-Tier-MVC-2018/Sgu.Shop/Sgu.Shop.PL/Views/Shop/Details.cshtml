@@ -1,0 +1,155 @@
+﻿@model Sgu.StudentTesting.PL.ViewModel.Shop.ShopDisplayVM
+<head>
+@{
+    ViewBag.Title = "Details";
+}
+</head>
+<body>
+<h2>Подробная информация</h2>
+<span>
+    @{ 
+        //var base64 = Model.Image;
+        //var imgsrc = string.Format("data:image/gif; base64,{0}", base64);
+        var imgsrc = Model.Image;
+    }
+    <img src= '@imgsrc' style="max-height:300px; max-height:300px"/>
+</span>
+<span style="font-size:20px">
+    
+    <hr />
+    <dl class="dl-horizontal">       
+
+        <dt>
+            Название
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameShop)
+        </dd>
+
+        <dt>
+            Адрес
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            Город
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            Сайт
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+        <dt>
+            Описание
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DescriptionShop)
+        </dd>
+
+        <dt>
+            Телефон
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneShop)
+        </dd>
+
+        <dt>
+            Часы работы
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OpeningHours)
+        </dd>
+
+        <dt>
+            Рейтинг
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+    </dl>
+</span>
+@using (Html.BeginForm("DetailsPost","Shop", FormMethod.Post))
+{
+<span id="reviewStars-input">
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <p>Оценить магазин</p>
+            <input id="star-0" type="radio" name="reviewStars" value="1" />
+            1
+            <label title="bad" for="star-0"></label>
+                     
+            <input id="star-1" type="radio" name="reviewStars" value="2"/>
+            2
+            <label title="poor" for="star-1"></label>
+
+            <input id="star-2" type="radio" name="reviewStars" value="3" />
+            3
+            <label title="regular" for="star-2"></label>
+
+            <input id="star-3" type="radio" name="reviewStars" value="4" />
+            4
+            <label title="good" for="star-3"></label>
+
+            <input id="star-4" type="radio" name="reviewStars" value="5" />
+            5
+            <label title="gorgeous" for="star-4"></label>
+        </div>
+        @Html.Hidden("idShop", ViewData["IDShop"])
+        <input type="submit" value="Оценить" class="btn btn-default" />
+    </div>
+</span>
+}
+    <p style="font-size:20px">
+        @Html.ActionLink("Вернуться", "ListShops")
+    </p>
+@using (Ajax.BeginForm("Comments", new AjaxOptions
+{
+    UpdateTargetId = "results",
+    Confirm = "Выполнить AJAX-запрос?"
+}))
+{
+    @*<form action="/Shop/Comments" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">*@
+
+        <button style="font-size:20px; width:200px" type='button' id="feedback">Отзывы</button>
+        @*@Html.ActionLink("Отзывы", "Comments", new { id = ViewData["IDShop"] })*@
+
+    @*</form>*@
+}
+    <div id="results"></div>
+        @*@section Scripts {
+            @Scripts.Render("~/Scripts/jquery-1.10.2.intellisense.js")
+            @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+            @Scripts.Render("~/Scripts/jquery.validate.min.js")
+
+        }*@
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.intellisense.js" ></script>
+    <script type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js" ></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#feedback').click(function (e) {
+                e.preventDefault();
+                var name = ViewData["IDShop"] ;
+                name=encodeURIComponent(name);
+                $('#results').load('@Url.Action("Отзывы", "Comments")?id='+name)
+            });
+        });
+    </script>
+</body>

@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Sgu.StudentTesting.PL.ViewModel.Shop.ShopDisplayVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Список магазинов</h2>
+
+@if ((int)ViewData["UserRole"] == 1)
+{
+    <td>
+        @Html.ActionLink("Создать магазин", "Create")
+    </td>
+}
+@if ((int)ViewData["Sort"] == 0)
+{
+    using (Html.BeginForm("SortShops", "Shop", FormMethod.Get))
+    {
+        <input style="margin-bottom:10px" type="submit" value="Сортировать по рейтингу" class="btn btn-default" />
+    }
+}
+@using (Html.BeginForm("SelectShops", "Shop", FormMethod.Get))
+{
+    <table class="table">
+        <tr>
+            <th>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownList("NameShop", ViewData["NameShop"] as List<SelectListItem>, "Не выбрано", new { style = "width: 100%; height: 34px; padding: 6px 12px; font-size: 14px;" })
+                    </div>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.DropDownList("Description", ViewData["Description"] as List<SelectListItem>, "Не выбрано", new { style = "width: 100%; height: 34px; padding: 6px 12px; font-size: 14px;" })
+                    </div>
+                </div>
+            </th>
+            <th>
+                <input type="submit" value="Поиск" class="btn btn-default" />
+            </th>
+        </tr>
+    </table>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Картинка
+        </th>
+        <th>
+            Название
+        </th>
+        <th>
+            Адрес
+        </th>
+        <th>
+            Город
+        </th>
+        <th>
+            Сайт
+        </th>
+        <th>
+            Описание
+        </th>
+        <th>
+            Телефон
+        </th>
+        <th>
+            Часы работы
+        </th>
+        <th>
+            Ретинг
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Action("GetImage","Shop", new { image = item.Image})" style="max-height:100px; max-height:100px" />
+
+                @*@{
+                    var base64 = Convert.ToBase64String(item.Image);
+                    var imgsrc = string.Format("data:image/gif; base64,{0}", base64);
+                }
+                <img src='@imgsrc' style="max-height:100px; max-height:100px" />*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameShop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Website)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DescriptionShop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneShop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpeningHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                @Html.ActionLink("Подробнее", "Details", new { id = item.IDShop })
+            </td>
+            @if ((int)ViewData["UserRole"] == 1)
+            {
+                <td>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.IDShop }) |
+
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.IDShop })
+                </td>
+            }
+
+        </tr>
+    }
+
+</table>
